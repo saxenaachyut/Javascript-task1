@@ -116,17 +116,36 @@ function displayEmployeeDetails(id) {
 
                 <div class="block">
                     <label for="jobTitle">Job Title :</label>
-                    <input type="text" value="${employee.jobTitle}" id="jobTitleEdit">
+                    <select name="jobTitleEdit" id="jobTitleEdit">
+                    <option value="none">${employee.jobTitle}</option>
+                    <option value="SharePoint Practice Head">SharePoint Practice Head</option>
+                    <option value=".Net Development Lead">.Net Development Lead</option>
+                    <option value="Recruting Expert">Recruting Expert</option>
+                    <option value="BI Developer">BI Developer</option>
+                    <option value="Buisness Analyst">Buisness Analyst</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Intern">Intern</option>
+                </select>
                 </div>
 
                 <div class="block">
                     <label for="office">Office :</label>
-                    <input type="text" value="${employee.office}" id="officeEdit">
+                    <select name="officeEdit" id="officeEdit">
+                    <option value="none">${employee.office}</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="India">India</option>
+                </select>
                 </div>
 
                 <div class="block">
                     <label for="department">Department :</label>
-                    <input type="text" value="${employee.department}" id="departmentEdit">
+                    <select name="departmentEdit" id="departmentEdit">
+                    <option value="none">${employee.department}</option>
+                    <option value="IT">IT</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="MD">MD</option>
+                    <option value="Sales">Sales</option>
+                </select>
                 </div>
 
                 <div class="block">

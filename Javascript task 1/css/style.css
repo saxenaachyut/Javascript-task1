@@ -395,6 +395,14 @@ body {
     border: none;
 }
 
+.block select {
+
+    width: 40%;
+    margin: 8px;
+    padding: 3px;
+    border: none;
+}
+
 .block label {
     
     width: 100px;
