@@ -1,0 +1,405 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+* {
+
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+body {
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.accent-color {
+
+    color: #3FC3FC;
+    display: inline;
+}
+
+.top-bar {
+
+    height: 100px;
+    width: 100%;
+    border-bottom: 2px solid #F0F0F0;
+}
+
+.logo {
+
+    float: left;
+    padding-top: 10px;
+    margin-left: 20px;
+}
+
+.title {
+
+    float: left;
+    padding-top: 15px;
+    font-weight: 300;
+}
+
+.title h1 {
+
+    font-weight: 300;
+    color: #3FC3FC;
+}
+
+.welcome {
+
+    float: right;
+    height: 100%;
+    width: 500px;
+}
+
+.welcome-text {
+
+    height: 100%;
+    padding-top: 50px;
+    float: right;
+}
+
+.welcome-text h2 {
+
+    font-weight: 300;
+    display: inline;
+}
+
+.welcome-img {
+
+    float: right;
+    padding-top: 18px;
+    margin-left: 10px;
+    margin-right: 20px;
+}
+
+.side-panel {
+    
+    float: left;
+    height: 630px;
+    width: 255px;
+    margin-left: 30px;
+    padding-top: 40px;
+    line-height: 23px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.side-panel h3 {
+
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.side-panel ul {
+
+    list-style-type: none;
+}
+
+.side-panel li {
+    
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.side-panel a {
+    
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: underline;
+    color: #59C7FD;
+}
+
+.viewMore {
+
+    display: none;
+}
+
+.main {
+
+    float: right;
+    height: 630px;
+    width: 1214px;
+    margin-right: 20px;
+
+}
+
+.top-panel {
+
+    height: 170px;
+    width: 100%;
+}
+
+.top-panel-alphabet {
+
+    height: 48%;
+    width: 100%;   
+    padding-top: 45px;
+    padding-left: 3px;
+}
+
+.alphabet-button, button.alphabet-button {
+
+    padding: 8px 11px;
+    background: #00B1FC;
+    color: white;
+    border: none;
+    font-size: 17px;
+}
+
+
+.top-panel-search {
+
+    height: 52%;
+    width: 100%;
+    vertical-align: middle;
+    padding-top: 30px;
+
+}
+
+.top-panel-search p {
+
+    font-size: 12px;
+
+}
+
+.top-panel-search input {
+
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    margin-left: 6px;
+    margin-right: 20px;
+    width: 250px;
+}
+
+.top-panel-search button {
+
+    padding: 8px 16px;
+    margin-right: 50px;
+    color: white;
+    background: #69BA00;
+    border: none;
+
+}
+
+.filter {
+
+    padding: 8px 16px;
+    margin-left: 10px;
+    padding-left: 3px;
+    width: 150px;
+}
+
+.add-employee, button.add-employee {
+
+    display: inline;
+    background-color: #00B1FC;
+    margin-left: 400px;
+    margin-right: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 8px 8px;
+}
+
+
+.bottom-panel {
+
+    height: 460px;
+    width: 100%;
+    margin-top: 16px;
+    border: 1px solid black;
+    padding: 20px 20px; 
+}
+
+.employee-details-panel {
+
+    float: left;
+    height: 80px;
+    width: 250px;
+    background-color: #E9E8E8;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.employee-details-panel-img {
+
+    height: 100%;
+    float: left;
+    margin-right: 8px;
+
+}
+
+.employee-details-panel-img img {
+
+    height: 90%;
+    padding-top: 10px;
+    padding-left: 10px;
+    vertical-align: top;
+}
+
+.employee-details-panel-text {
+
+    float: left;
+    font-size: 12px;
+    font-weight: 300;
+    padding-top: 10px;
+}
+
+.employee-details-panel-text b {
+
+    font-size: 14px;
+}
+
+
+
+.modal-addEmployee-bg {
+
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-addEmployee {
+
+    height: 500px;
+    width: 700px;
+    background-color: white;
+    position: relative;
+    text-align: center;
+    padding-top: 40px;
+}
+
+.modal-addEmployee h1 {
+
+    font-weight: 300;
+    color: #3FC3FC;
+    font-size: 40px;
+}
+
+.modal-addEmployee input {
+
+    width: 50%;
+    margin: 10px auto;
+    display: block;
+    padding: 5px;
+}
+
+.modal-addEmployee button {
+
+    width: 40%;
+    margin: 10px auto;
+    display: block;
+    padding: 8px;
+    background-color: #00B1FC;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+.modal-addEmployee select {
+
+    font: inherit;
+    font-size: 14px;
+    padding: 3px 10px;
+    width: 50%;
+    margin: 10px auto;
+    display: block;
+}
+
+
+.close-addEmployee {
+    position: absolute;
+    top: 0;
+    font-size: 34px;
+    right: 14px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.modal-employeeDetail-bg {
+
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-employeeDetail {
+
+    height: 500px;
+    width: 700px;
+    background-color: white;
+    position: relative;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.modal-employeeDetail h1 {
+
+    font-weight: 300;
+    color: #3FC3FC;
+    font-size: 30px;
+    text-align: center;
+}
+
+.modal-employeeDetail button {
+
+    width: 20%;
+    margin: 16px auto;
+    display: block;
+    padding: 8px;
+    background-color: #00B1FC;
+    color: white;
+    border: none;
+    margin-top: 10px;
+}
+
+.close-employeeDetail {
+    position: absolute;
+    top: 0;
+    font-size: 34px;
+    right: 14px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+.modal-employeeDetail-text {
+
+    height: 100%;
+    width: 100%;
+}
+
+.block {
+
+    text-align: center;
+}
+
+
+.block input {
+
+    width: 40%;
+    margin: 8px;
+    padding: 3px;
+    border: none;
+}
+
+.block label {
+    
+    width: 100px;
+    display: inline-block;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 500;
+}

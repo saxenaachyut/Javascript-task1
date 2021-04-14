@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Employee Directory</title>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">
+           <a href="index.html"><img src="img/logo.png" alt=""></a> 
+        </div>
+
+        <div class="title">
+            <h1>Employee Directory</h1>
+            The Ultimate People Directory Experience
+        </div>
+
+        <div class="welcome">
+            <div class="welcome-img">
+                <img src="img/andrew.PNG" alt="">
+            </div>
+            <div class="welcome-text"><h2><div class="accent-color">Welcome, </div>Andrew Philips</h2></div> 
+        </div>
+    </div>
+
+    <div class="side-panel">
+    </div>
+
+    <div class="main">
+        <div class="top-panel">
+            <div class="top-panel-alphabet">
+                <button class="alphabet-button" id="allButton">#</button>
+                <button class="alphabet-button" id="A-Button">A</button>
+                <button class="alphabet-button" id="B-Button">B</button>
+                <button class="alphabet-button" id="C-Button">C</button>
+                <button class="alphabet-button" id="D-Button">D</button>
+                <button class="alphabet-button" id="E-Button">E</button>
+                <button class="alphabet-button" id="F-Button">F</button>
+                <button class="alphabet-button" id="G-Button">G</button>
+                <button class="alphabet-button" id="H-Button">H</button>
+                <button class="alphabet-button" id="I-Button">I</button>
+                <button class="alphabet-button" id="J-Button">J</button>
+                <button class="alphabet-button" id="K-Button">K</button>
+                <button class="alphabet-button" id="L-Button">L</button>
+                <button class="alphabet-button" id="M-Button">M</button>
+                <button class="alphabet-button" id="N-Button">N</button>
+                <button class="alphabet-button" id="O-Button">O</button>
+                <button class="alphabet-button" id="P-Button">P</button>
+                <button class="alphabet-button" id="Q-Button">Q</button>
+                <button class="alphabet-button" id="R-Button">R</button>
+                <button class="alphabet-button" id="S-Button">S</button>
+                <button class="alphabet-button" id="T-Button">T</button>
+                <button class="alphabet-button" id="U-Button">U</button>
+                <button class="alphabet-button" id="V-Button">V</button>
+                <button class="alphabet-button" id="W-Button">W</button>
+                <button class="alphabet-button" id="X-Button">X</button>
+                <button class="alphabet-button" id="Y-Button">Y</button>
+                <button class="alphabet-button" id="Z-Button">Z</button>          
+            </div>
+
+            <div class="top-panel-search">
+                Search
+                <input type="text" placeholder=" Enter any keyword" id='searchBar'>
+                <button id="clearButton">Clear</button>
+
+                Filter By
+
+                <select name="filter" id="filter" class="filter">
+                    <option value='preferedName'>Prefered Name</option>
+                    <option value="office">Office</option>
+                    <option value="department">Department</option>
+                    <option value="jobTitle">Job Title</option>
+                  </select>
+
+                  <button class="add-employee" id="addEmployeeButton">Add Employee</button>
+
+                  <br>
+                  <br>
+                  <p><b>Note</b>: Please use the advanced filter options to refine your results.</p> 
+            </div>
+        </div>
+
+        <div class="bottom-panel" id="details">
+        </div>
+    </div>
+
+    <div class="modal-addEmployee-bg"> 
+        <div class="modal-addEmployee">
+            <div class="close-addEmployee" id='addEmployeeCloseButton'>+</div>
+
+            <h1>Add Employee</h1>
+            <form action="index.html" onsubmit="return getFormData()" id="addEmployeeForm">
+                <input type="text" id="firstName" name="firstName" placeholder="First Name">
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name">
+                <input type="text" id="email" name="email" placeholder="Email Address">
+                <select name="jobTitle" id="jobTitle">
+                    <option value="none">Job Title</option>
+                    <option value="SharePoint Practice Head">SharePoint Practice Head</option>
+                    <option value=".Net Development Lead">.Net Development Lead</option>
+                    <option value="Recruting Expert">Recruting Expert</option>
+                    <option value="BI Developer">BI Developer</option>
+                    <option value="Buisness Analyst">Buisness Analyst</option>
+                    <option value="Manager">Manager</option>
+                    <option value="Intern">Intern</option>
+                </select>
+                <select name="office" id="addEmployeeoffice">
+                    <option value="none">Office</option>
+                    <option value="Seattle">Seattle</option>
+                    <option value="India">India</option>
+                </select>
+                <select name="department" id="addEmployeedepartment">
+                    <option value="none">Department</option>
+                    <option value="IT">IT</option>
+                    <option value="Human Resources">Human Resources</option>
+                    <option value="MD">MD</option>
+                    <option value="Sales">Sales</option>
+                </select>
+                <input type="text" id="phoneNumber" name="phoneNumber" placeholder="PhoneNumber">
+                <input type="text" id="skypeID" name="skypeID" placeholder="Skype ID">
+                <button type="submit" id="AddEmployeeSubmit">Add Employee</button>
+            </form>
+        </div> 
+    </div>
+
+    <div class="modal-employeeDetail-bg">
+        <div class="modal-employeeDetail">
+            <div class="close-employeeDetail" id='addEmployeeCloseButton'>+</div>
+            <h1>Employee Details</h1>
+            <div class="modal-employeeDetail-text" id="employeeDetailModal">
+            </div>
+        </div>
+    </div>
+</body>
+<script src="Js/main.js"></script>
+</html>
