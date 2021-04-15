@@ -32,33 +32,7 @@
     <div class="main">
         <div class="top-panel">
             <div class="top-panel-alphabet">
-                <button class="alphabet-button" id="allButton">#</button>
-                <button class="alphabet-button" id="A-Button">A</button>
-                <button class="alphabet-button" id="B-Button">B</button>
-                <button class="alphabet-button" id="C-Button">C</button>
-                <button class="alphabet-button" id="D-Button">D</button>
-                <button class="alphabet-button" id="E-Button">E</button>
-                <button class="alphabet-button" id="F-Button">F</button>
-                <button class="alphabet-button" id="G-Button">G</button>
-                <button class="alphabet-button" id="H-Button">H</button>
-                <button class="alphabet-button" id="I-Button">I</button>
-                <button class="alphabet-button" id="J-Button">J</button>
-                <button class="alphabet-button" id="K-Button">K</button>
-                <button class="alphabet-button" id="L-Button">L</button>
-                <button class="alphabet-button" id="M-Button">M</button>
-                <button class="alphabet-button" id="N-Button">N</button>
-                <button class="alphabet-button" id="O-Button">O</button>
-                <button class="alphabet-button" id="P-Button">P</button>
-                <button class="alphabet-button" id="Q-Button">Q</button>
-                <button class="alphabet-button" id="R-Button">R</button>
-                <button class="alphabet-button" id="S-Button">S</button>
-                <button class="alphabet-button" id="T-Button">T</button>
-                <button class="alphabet-button" id="U-Button">U</button>
-                <button class="alphabet-button" id="V-Button">V</button>
-                <button class="alphabet-button" id="W-Button">W</button>
-                <button class="alphabet-button" id="X-Button">X</button>
-                <button class="alphabet-button" id="Y-Button">Y</button>
-                <button class="alphabet-button" id="Z-Button">Z</button>          
+                <button class="selected-button" id="allButton">#</button>        
             </div>
 
             <div class="top-panel-search">
@@ -92,31 +66,16 @@
             <div class="close-addEmployee" id='addEmployeeCloseButton'>+</div>
 
             <h1>Add Employee</h1>
-            <form action="index.html" onsubmit="return AddEmployee()" id="addEmployeeForm">
+            <form action="index.html" onsubmit="return addEmployee()" id="addEmployeeForm">
                 <input type="text" id="firstName" name="firstName" placeholder="First Name">
                 <input type="text" id="lastName" name="lastName" placeholder="Last Name">
                 <input type="text" id="email" name="email" placeholder="Email Address">
-                <select name="jobTitle" id="jobTitle">
+                <select name="jobTitle" id="addEmployeeJobTitle">
                     <option value="none">Job Title</option>
-                    <option value="SharePoint Practice Head">SharePoint Practice Head</option>
-                    <option value=".Net Development Lead">.Net Development Lead</option>
-                    <option value="Recruting Expert">Recruting Expert</option>
-                    <option value="BI Developer">BI Developer</option>
-                    <option value="Buisness Analyst">Buisness Analyst</option>
-                    <option value="Manager">Manager</option>
-                    <option value="Intern">Intern</option>
                 </select>
-                <select name="office" id="addEmployeeoffice">
-                    <option value="none">Office</option>
-                    <option value="Seattle">Seattle</option>
-                    <option value="India">India</option>
+                <select name="office" id="addEmployeeOffice">
                 </select>
-                <select name="department" id="addEmployeedepartment">
-                    <option value="none">Department</option>
-                    <option value="IT">IT</option>
-                    <option value="Human Resources">Human Resources</option>
-                    <option value="MD">MD</option>
-                    <option value="Sales">Sales</option>
+                <select name="department" id="addEmployeeDepartment">
                 </select>
                 <input type="text" id="phoneNumber" name="phoneNumber" placeholder="PhoneNumber">
                 <input type="text" id="skypeID" name="skypeID" placeholder="Skype ID">

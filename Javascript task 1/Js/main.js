@@ -13,94 +13,118 @@ class Employee{
         this.skypeID = skypeID;
     }
 };
-const JobTitles = ["SharePoint Practice Head", ".Net Development Lead", "Recruting Expert", "BI Developer", "Buisness Analyst", "Manager", "Intern"];
 
-function validate() {
+const JobTitles = ["SharePoint Practice Head", ".Net Development Lead", "Recruting Expert", "BI Developer", "Buisness Analyst", "Manager", "Intern"];
+const Departments = ['IT','Human Resources','MD','Sales'];
+const Offices = ['Seattle','India'];
+
+function isEmpty(field) {
+
+    if(field.trim() == "")
+    {
+        return true;
+    }
+
+    return false;
+}
+
+function isEmployeeValidate() {
 
     var firstName = document.getElementById('firstName');
     var lastName = document.getElementById('lastName');
     var email = document.getElementById('email');
-    var jobTitle = document.getElementById('jobTitle');
-    var office = document.getElementById('office');
-    var department = document.getElementById('department');
     var phoneNumber = document.getElementById('phoneNumber');
-    var skypeID = document.getElementById('skypeID');
 
-    if( firstName.value.trim() == "" || lastName.value.trim() == "" || email.value.trim() == "" || phoneNumber.value.trim() == "" )
+    if( isEmpty(firstName.value) || isEmpty(lastName.value) || isEmpty(email.value) || isEmpty(phoneNumber.value))
     {
         alert('Fields Cannot be left Blank');
         return false;
     }
-
-    else
-    {
-        return true;
-    }
+    
+    return true;
 }
 
-function AddEmployee(event) {
+function addEmployee() {
 
-    if(Employees != null)
-    {
-        loadEmployees();
-        
-    }
-    else
-    {
-        Employees = [];
-    }
 
-    if(validate())
+    loadEmployees();
+    if(isEmployeeValidate())
     {
         var form = document.getElementById('addEmployeeForm');
         var formData = new FormData(form);
         console.log(formData.get('office'));
-        var employee = new Employee(formData.get('firstName'), formData.get('lastName'), formData.get('email'), formData.get('jobTitle'), formData.get('office'), formData.get('department'), formData.get('phoneNumber'), formData.get('skypeID'));
-        
+        var employee = new Employee(formData.get('firstName'), formData.get('lastName'), formData.get('email'), formData.get('jobTitle'), formData.get('office'), formData.get('department'), formData.get('phoneNumber'), formData.get('skypeID'));    
         Employees.push(employee);
-
-        
 
         saveEmployees();
         return true;
     }
-    else
+    
+    return false;
+}
+
+function displayAddEmployee(){
+
+    var data = document.getElementById('addEmployeeJobTitle');
+    var e = ``;
+
+    for( var i = 0; i < JobTitles.length; i++)
     {
-        return false;
+        e += `<option value="${JobTitles[i]}">${JobTitles[i]}</option>`;
     }
+
+    data.innerHTML += e;
+
+    data = document.getElementById('addEmployeeOffice');
+    e = ``;
+
+    for( var i = 0; i < Offices.length; i++)
+    {
+        e += `<option value="${Offices[i]}">${Offices[i]}</option>`;
+    }
+
+    data.innerHTML += e;
+    
+
+    data = document.getElementById('addEmployeeDepartment');
+    e = ``;
+
+    for( var i = 0; i < Departments.length; i++)
+    {
+        e += `<option value="${Departments[i]}">${Departments[i]}</option>`;
+    }
+
+    data.innerHTML += e;
+
+    console.log(e);
 }
 
 function displayEmployee() {
 
     var data = document.getElementById('details');
-
-    if(Employees != null)
+    
+    for(var i = 0; i < Employees.length; i++)
     {
-        for(var i = 0; i < Employees.length; i++)
-        {
-            var e = `<div class="employee-details-panel" id="employee-details-panel${i}">
-            <div class="employee-details-panel-img"><img src="img/profile.PNG" alt=""></div> 
-            <div class="employee-details-panel-text">
-                <b>${Employees[i].preferedName}</b> <br>
-                ${Employees[i].jobTitle} <br>
-                ${Employees[i].department}
-            </div> 
-        </div>`
-            data.innerHTML += e;
-        }
-
-        document.querySelectorAll('.employee-details-panel').forEach( item => {
-            item.addEventListener('click', 
-            function(event){
-                displayEmployeeDetails(event.currentTarget.id);
-            })
-        });
-
+        var e = `<div class="employee-details-panel" id="employee-details-panel${i}">
+        <div class="employee-details-panel-img"><img src="img/profile.PNG" alt=""></div> 
+        <div class="employee-details-panel-text">
+            <b>${Employees[i].preferedName}</b> <br>
+            ${Employees[i].jobTitle} <br>
+            ${Employees[i].department}
+        </div> 
+    </div>`
+        data.innerHTML += e;
     }
-    else 
-    {
-        console.log("add Employee");
-    }
+
+    document.querySelectorAll('.employee-details-panel').forEach( item => {
+        item.addEventListener('click', 
+        function(event){
+            displayEmployeeDetails(event.currentTarget.id);
+        })
+    });
+        
+
+        
 }
 
 function displayEmployeeDetails(id) {
@@ -206,232 +230,197 @@ function displayEmployeeDetails(id) {
         details = document.querySelector('.side-panel');
         details.innerHTML = '';
         displaySidePanel();
+    });       
+}
+
+function employeeCount(field, fieldValue) {
+
+    var employeeCount = Employees.filter( employee => {
+        return employee[field].toLowerCase().includes(fieldValue.toLowerCase());
     });
-        
+
+    return employeeCount.length || 0;
 }
 
 function displaySidePanel() {
 
     var sidePanel = document.querySelector('.side-panel');
 
-    if(Employees != null)
+    var e = `<h3>Departments</h3>
+            <ul id="Departments">`;
+
+    for (var i = 0; i < Departments.length; i++)
     {
-        
-        var IT = Employees.filter( employee => {
-            return employee['department'].toLowerCase().includes('it');
-        });
+        var count = employeeCount('department', Departments[i]);
+        e += `<li class="side-panel-d-items">${Departments[i]} (${count})</li>`
+    }
 
-        var HR = Employees.filter( employee => {
-            return employee['department'].toLowerCase().includes('human resources');
-        });
+    e += `</ul> <br>`;
 
-        var MD = Employees.filter( employee => {
-            return employee['department'].toLowerCase().includes('md');
-        });
+    e += `<h3>Offices</h3>
+            <ul id="Offices">`;
 
-        var Sales = Employees.filter( employee => {
-            return employee['department'].toLowerCase().includes('sales');
-        });
+    for (var i = 0; i < Offices.length; i++)
+    {
+        var count = employeeCount('office', Offices[i]);
+        e += `<li class="side-panel-d-items">${Offices[i]} (${count})</li>`
+    }
 
-        var Seattle = Employees.filter( employee => {
-            return employee['office'].toLowerCase().includes('seattle');
-        });
+    e += `</ul><br>`;
 
-        var India = Employees.filter( employee => {
-            return employee['office'].toLowerCase().includes('india');
-        });
-
-        var e = `
-        <h3>Departments</h3> 
-            <ul id="Departments">
-                <li class="side-panel-d-items">IT (${IT.length})</li>
-                <li class="side-panel-d-items">Human Resources (${HR.length})</li>
-                <li class="side-panel-d-items">MD (${MD.length})</li>
-                <li class="side-panel-d-items">Sales (${Sales.length})</li>
-            </ul>
-            <br>
-            <h3>Offices</h3>
-            <ul id="Offices">
-                <li class="side-panel-o-items">Seattle (${Seattle.length})</li>
-                <li class="side-panel-o-items">India (${India.length})</li>
-            </ul>
-            <br>
-            <h3>Job Titles</h3>
+    e += `<h3>Job Titles</h3>
             <ul id="Job Titles">
-            </ul>
-        `;
+            </ul>`;
+        
+    sidePanel.innerHTML += e;
 
-        sidePanel.innerHTML += e;
+    e = '';
 
-        e = '';
-
-        for(var i=0; i < JobTitles.length; i++)
+    for(var i=0; i < JobTitles.length; i++)
+    {
+        count = employeeCount('jobTitle', JobTitles[i]);
+        
+        if(i == 5)
         {
-            var list = Employees.filter(employee => {
-                return employee['jobTitle'].includes(JobTitles[i]);
+            e += `
+            <span class="viewMore">
+            <li class="side-panel-j-items">${JobTitles[i]} (${count})</li>`;
+        }
+        
+        else if(i == JobTitles.length-1)
+        {
+            e += `<li class="side-panel-j-items">${JobTitles[i]} (${count})</li></span>`;
+        }
+        
+        else
+        {
+            e += `<li class="side-panel-j-items">${JobTitles[i]} (${count})</li>`;
+        }         
+    }
+    
+    var sidePanelJobs = document.getElementById('Job Titles');
+    sidePanelJobs.innerHTML += e;
+    sidePanel = document.querySelector('.side-panel');
+    e = ``;
+    e=`<a id="viewMoreT">view more</a>`;
+    sidePanel.innerHTML += e;
+
+    document.getElementById("viewMoreT").addEventListener('click', 
+    function (e){
+        var panel = document.querySelector(".viewMore");
+        if(panel.style.display == 'none')
+        {
+            panel.style.display = 'inline';
+            this.innerHTML = 'view less';
+        }
+        else
+        {
+            panel.style.display = 'none';
+            this.innerHTML = 'view more';
+        }
+    });
+    
+    document.querySelectorAll('.side-panel-d-items').forEach( item => {
+        item.addEventListener('click',
+        function(event){
+            
+            loadEmployees();
+            var c = event.currentTarget.innerHTML;
+            var string = c.substring(0,c.indexOf(" "));
+            Employees = Employees.filter( employee => {
+                return employee.department.toLowerCase().includes(string.toLowerCase());
+            });
+            
+            document.getElementById('details').innerHTML = '';
+            displayEmployee();
+        });
+    });
+    
+    document.querySelectorAll('.side-panel-o-items').forEach( item => {
+        
+        item.addEventListener('click',
+        function(event){
+            loadEmployees();
+            var c = event.currentTarget.innerHTML;
+            var string = c.substring(0,c.indexOf(" "));
+            Employees = Employees.filter( employee => {
+                return employee.office.toLowerCase().includes(string.toLowerCase());
+            });
+            
+            document.getElementById('details').innerHTML = '';
+            displayEmployee();
+        })
+    });
+
+    document.querySelectorAll('.side-panel-j-items').forEach( item => {
+        item.addEventListener('click', 
+        function(event){
+            
+            loadEmployees();
+            var c = event.currentTarget.innerHTML;
+            var string = c.substring(0,c.indexOf(" "));
+            Employees = Employees.filter( employee => {
+                return employee.jobTitle.toLowerCase().includes(string.toLowerCase());
             });
 
-            if(i == 5)
-            {
-                e += `
-                <span class="viewMore">
-                <li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
-            }
-
-            else if(i == JobTitles.length-1)
-            {
-                e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>
-                </span>`;
-            }
-            else
-            {
-                e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
-            }
-        }
-
-        var sidePanelJobs = document.getElementById('Job Titles');
-        sidePanelJobs.innerHTML += e;
-
-        sidePanel = document.querySelector('.side-panel');
-        e = ``;
-        e=`<a id="viewMoreT">view more</a>`;
-        sidePanel.innerHTML += e;
-
-        document.getElementById("viewMoreT").addEventListener('click', 
-        function (e){
-
-            var panel = document.querySelector(".viewMore");
-            if(panel.style.display == 'none')
-            {
-                panel.style.display = 'inline';
-                this.innerHTML = 'view less';
-            }
-            else
-            {
-                panel.style.display = 'none';
-                this.innerHTML = 'view more';
-            }
-        });
-
-        document.querySelectorAll('.side-panel-d-items').forEach( item => {
-            item.addEventListener('click', 
-            function(event){
-
-                var c = event.currentTarget.innerHTML;
-                var string = c.substring(0,c.indexOf(" "));
-                Employees = Employees.filter( employee => {
-                    return employee.department.toLowerCase().includes(string.toLowerCase());
-                });
-
-                document.getElementById('details').innerHTML = '';
-                displayEmployee();
-            })
-        });
-
-        document.querySelectorAll('.side-panel-o-items').forEach( item => {
-            item.addEventListener('click', 
-            function(event){
-
-                var c = event.currentTarget.innerHTML;
-                var string = c.substring(0,c.indexOf(" "));
-                Employees = Employees.filter( employee => {
-                    return employee.office.toLowerCase().includes(string.toLowerCase());
-                });
-
-                document.getElementById('details').innerHTML = '';
-                displayEmployee();
-            })
-        });
-
-        document.querySelectorAll('.side-panel-j-items').forEach( item => {
-            item.addEventListener('click', 
-            function(event){
-
-                var c = event.currentTarget.innerHTML;
-                var string = c.substring(0,c.indexOf(" "));
-                Employees = Employees.filter( employee => {
-                    return employee.jobTitle.toLowerCase().includes(string.toLowerCase());
-                });
-
-                document.getElementById('details').innerHTML = '';
-                displayEmployee();
-            })
-        });
-
-    }
-
-    else
-    {
-        var e = `
-        <h3>Departments</h3> 
-            <ul id="Departments">
-                <li class="side-panel-d-items">IT (0)</li>
-                <li class="side-panel-d-items">Human Resources (0)</li>
-                <li class="side-panel-d-items">MD (0)</li>
-                <li class="side-panel-d-items">Sales (0)</li>
-            </ul>
-            <br>
-            <h3>Offices</h3>
-            <ul id="Offices">
-                <li class="side-panel-o-items">Seattle (0)</li>
-                <li class="side-panel-o-items">India (0)</li>
-            </ul>
-            <br>
-            <h3>Job Titles</h3>
-            <ul id="Job Titles">
-            </ul>
-        `;
-
-        sidePanel.innerHTML += e;
-
-        e = '';
-
-        for(var i=0; i < JobTitles.length; i++)
-        {
-            if(i == 5)
-            {
-                e += `
-                <span class="viewMore">
-                <li class="side-panel-j-items">${JobTitles[i]} (0)</li>`;
-            }
-
-            else if(i == JobTitles.length-1)
-            {
-                e += `<li class="side-panel-j-items">${JobTitles[i]} (0)</li>
-                </span>`;
-            }
-            else
-            {
-                e += `<li class="side-panel-j-items">${JobTitles[i]} (0)</li>`;
-            }
-        }
-
-        var sidePanelJobs = document.getElementById('Job Titles');
-        sidePanelJobs.innerHTML += e;
-
-        sidePanel = document.querySelector('.side-panel');
-        e = ``;
-        e=`<a id="viewMoreT">view more</a>`;
-        sidePanel.innerHTML += e;
-
-        document.getElementById("viewMoreT").addEventListener('click', 
-        function (e){
-
-            var panel = document.querySelector(".viewMore");
-            if(panel.style.display == 'none')
-            {
-                panel.style.display = 'inline';
-                this.innerHTML = 'view less';
-            }
-            else
-            {
-                panel.style.display = 'none';
-                this.innerHTML = 'view more';
-            }
-        });
-
-    }
+            document.getElementById('details').innerHTML = '';
+            displayEmployee();
+        })
+    });
 }
+
+function setOriginalButtonColor(){
+
+    document.querySelectorAll('.selected-button').forEach( button => {
+
+        button.classList.add('alphabet-button');
+    });
+}
+
+function displayAlphabetbuttons(){
+
+    var container = document.querySelector('.top-panel-alphabet');
+    var e = '';
+    
+    for(var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++)
+    {
+        e += `<button class="alphabet-button" id="${String.fromCharCode(i)}-Button">${String.fromCharCode(i)}</button> `;
+    }
+
+    container.innerHTML += e;
+
+    document.querySelectorAll('.alphabet-button').forEach( button => {
+        button.addEventListener('click', 
+        function(e){
+
+            setOriginalButtonColor();
+            loadEmployees();
+            const alphabet = String(e.currentTarget.id[0]);
+            this.classList.add('selected-button');
+            this.classList.remove('alphabet-button');
+            console.log(this.classList);
+            Employees = Employees.filter( employee => {
+                return employee.preferedName[0].toLowerCase().includes(alphabet.toLowerCase());
+        });
+    
+        var data = document.getElementById('details');
+        data.innerHTML = '';
+        displayEmployee();
+        })
+    });
+
+    document.getElementById('allButton').addEventListener('click',
+    function(e){
+
+        setOriginalButtonColor();
+        this.classList.add('selected-button');
+        this.classList.remove('alphabet-button');
+        document.getElementById('details').innerHTML = '';
+        loadEmployees();
+        displayEmployee();
+    });
+}
+
 
 
 function saveEmployees() {
@@ -442,7 +431,7 @@ function saveEmployees() {
 
 function loadEmployees(){
 
-    Employees = JSON.parse(localStorage.getItem('Employees'));
+    Employees = JSON.parse(localStorage.getItem('Employees')) || [];
 
 }
 
@@ -450,6 +439,8 @@ function loadEmployees(){
 
 document.getElementById('addEmployeeButton').addEventListener('click', 
 function(){
+
+    displayAddEmployee();
     document.querySelector('.modal-addEmployee-bg').style.display = 'flex';
 });
 
@@ -494,36 +485,12 @@ function (e) {
     document.getElementById('clearButton').disabled = false;
 });
 
-document.querySelectorAll('.alphabet-button').forEach( button => {
-    button.addEventListener('click', 
-    function(e){
-
-        loadEmployees();
-        const alphabet = String(e.currentTarget.id[0]);
-        Employees = Employees.filter( employee => {
-            return employee.preferedName[0].toLowerCase().includes(alphabet.toLowerCase());
-        });
-
-    var data = document.getElementById('details');
-    data.innerHTML = '';
-    displayEmployee();
-    })
-});
-
-document.getElementById('allButton').addEventListener('click',
-function(e){
-
-    document.getElementById('details').innerHTML = '';
-    loadEmployees();
-    displayEmployee();
-
-});
-
 
 
 var Employees = [];
 document.getElementById('clearButton').disabled = true;
 loadEmployees();
+displayAlphabetbuttons();
 displayEmployee();
 displaySidePanel();
 

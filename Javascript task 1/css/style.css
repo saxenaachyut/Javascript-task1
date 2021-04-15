@@ -148,6 +148,15 @@ body {
     font-size: 17px;
 }
 
+.selected-button {
+
+    background: #69BA00;
+    padding: 8px 11px;
+    color: white;
+    border: none;
+    font-size: 17px;
+}
+
 
 .top-panel-search {
 
