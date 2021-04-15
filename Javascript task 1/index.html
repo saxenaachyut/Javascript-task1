@@ -63,7 +63,7 @@
 
             <div class="top-panel-search">
                 Search
-                <input type="text" placeholder=" Enter any keyword" id='searchBar'>
+                <input type="text" class="searchBar" placeholder="Enter any keyword" id='searchBar'>
                 <button id="clearButton">Clear</button>
 
                 Filter By
@@ -92,7 +92,7 @@
             <div class="close-addEmployee" id='addEmployeeCloseButton'>+</div>
 
             <h1>Add Employee</h1>
-            <form action="index.html" onsubmit="return getFormData()" id="addEmployeeForm">
+            <form action="index.html" onsubmit="return AddEmployee()" id="addEmployeeForm">
                 <input type="text" id="firstName" name="firstName" placeholder="First Name">
                 <input type="text" id="lastName" name="lastName" placeholder="Last Name">
                 <input type="text" id="email" name="email" placeholder="Email Address">

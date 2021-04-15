@@ -38,16 +38,28 @@ function validate() {
     }
 }
 
-function getFormData(event) {
+function AddEmployee(event) {
 
-    loadEmployees();
+    if(Employees != null)
+    {
+        loadEmployees();
+        
+    }
+    else
+    {
+        Employees = [];
+    }
+
     if(validate())
     {
         var form = document.getElementById('addEmployeeForm');
         var formData = new FormData(form);
         console.log(formData.get('office'));
         var employee = new Employee(formData.get('firstName'), formData.get('lastName'), formData.get('email'), formData.get('jobTitle'), formData.get('office'), formData.get('department'), formData.get('phoneNumber'), formData.get('skypeID'));
+        
         Employees.push(employee);
+
+        
 
         saveEmployees();
         return true;
@@ -62,7 +74,7 @@ function displayEmployee() {
 
     var data = document.getElementById('details');
 
-    if(Employees.length != null)
+    if(Employees != null)
     {
         for(var i = 0; i < Employees.length; i++)
         {
@@ -84,6 +96,10 @@ function displayEmployee() {
             })
         });
 
+    }
+    else 
+    {
+        console.log("add Employee");
     }
 }
 
@@ -117,7 +133,7 @@ function displayEmployeeDetails(id) {
                 <div class="block">
                     <label for="jobTitle">Job Title :</label>
                     <select name="jobTitleEdit" id="jobTitleEdit">
-                    <option value="none">${employee.jobTitle}</option>
+                    <option value="${employee.jobTitle}">${employee.jobTitle}</option>
                     <option value="SharePoint Practice Head">SharePoint Practice Head</option>
                     <option value=".Net Development Lead">.Net Development Lead</option>
                     <option value="Recruting Expert">Recruting Expert</option>
@@ -131,7 +147,7 @@ function displayEmployeeDetails(id) {
                 <div class="block">
                     <label for="office">Office :</label>
                     <select name="officeEdit" id="officeEdit">
-                    <option value="none">${employee.office}</option>
+                    <option value="${employee.office}">${employee.office}</option>
                     <option value="Seattle">Seattle</option>
                     <option value="India">India</option>
                 </select>
@@ -140,7 +156,7 @@ function displayEmployeeDetails(id) {
                 <div class="block">
                     <label for="department">Department :</label>
                     <select name="departmentEdit" id="departmentEdit">
-                    <option value="none">${employee.department}</option>
+                    <option value="${employee.department}">${employee.department}</option>
                     <option value="IT">IT</option>
                     <option value="Human Resources">Human Resources</option>
                     <option value="MD">MD</option>
@@ -184,6 +200,12 @@ function displayEmployeeDetails(id) {
 
         details.innerHTML = '';
         document.querySelector('.modal-employeeDetail-bg').style.display = 'none';
+        details = document.getElementById("details");
+        details.innerHTML = '';
+        displayEmployee();
+        details = document.querySelector('.side-panel');
+        details.innerHTML = '';
+        displaySidePanel();
     });
         
 }
@@ -191,148 +213,224 @@ function displayEmployeeDetails(id) {
 function displaySidePanel() {
 
     var sidePanel = document.querySelector('.side-panel');
-    var IT = Employees.filter( employee => {
-        return employee['department'].toLowerCase().includes('it');
-    });
 
-    var HR = Employees.filter( employee => {
-        return employee['department'].toLowerCase().includes('human resources');
-    });
-
-    var MD = Employees.filter( employee => {
-        return employee['department'].toLowerCase().includes('md');
-    });
-
-    var Sales = Employees.filter( employee => {
-        return employee['department'].toLowerCase().includes('sales');
-    });
-
-    var Seattle = Employees.filter( employee => {
-        return employee['office'].toLowerCase().includes('seattle');
-    });
-
-    var India = Employees.filter( employee => {
-        return employee['office'].toLowerCase().includes('india');
-    });
-
-    var e = `
-    <h3>Departments</h3> 
-        <ul id="Departments">
-            <li class="side-panel-d-items">IT (${IT.length})</li>
-            <li class="side-panel-d-items">Human Resources (${HR.length})</li>
-            <li class="side-panel-d-items">MD (${MD.length})</li>
-            <li class="side-panel-d-items">Sales (${Sales.length})</li>
-        </ul>
-        <br>
-        <h3>Offices</h3>
-        <ul id="Offices">
-            <li class="side-panel-o-items">Seattle (${Seattle.length})</li>
-            <li class="side-panel-o-items">India (${India.length})</li>
-        </ul>
-        <br>
-        <h3>Job Titles</h3>
-        <ul id="Job Titles">
-        </ul>
-    `;
-
-    sidePanel.innerHTML += e;
-
-    e = '';
-
-    for(var i=0; i < JobTitles.length; i++)
+    if(Employees != null)
     {
-        var list = Employees.filter(employee => {
-            return employee['jobTitle'].includes(JobTitles[i]);
+        
+        var IT = Employees.filter( employee => {
+            return employee['department'].toLowerCase().includes('it');
         });
 
-        if(i == 5)
+        var HR = Employees.filter( employee => {
+            return employee['department'].toLowerCase().includes('human resources');
+        });
+
+        var MD = Employees.filter( employee => {
+            return employee['department'].toLowerCase().includes('md');
+        });
+
+        var Sales = Employees.filter( employee => {
+            return employee['department'].toLowerCase().includes('sales');
+        });
+
+        var Seattle = Employees.filter( employee => {
+            return employee['office'].toLowerCase().includes('seattle');
+        });
+
+        var India = Employees.filter( employee => {
+            return employee['office'].toLowerCase().includes('india');
+        });
+
+        var e = `
+        <h3>Departments</h3> 
+            <ul id="Departments">
+                <li class="side-panel-d-items">IT (${IT.length})</li>
+                <li class="side-panel-d-items">Human Resources (${HR.length})</li>
+                <li class="side-panel-d-items">MD (${MD.length})</li>
+                <li class="side-panel-d-items">Sales (${Sales.length})</li>
+            </ul>
+            <br>
+            <h3>Offices</h3>
+            <ul id="Offices">
+                <li class="side-panel-o-items">Seattle (${Seattle.length})</li>
+                <li class="side-panel-o-items">India (${India.length})</li>
+            </ul>
+            <br>
+            <h3>Job Titles</h3>
+            <ul id="Job Titles">
+            </ul>
+        `;
+
+        sidePanel.innerHTML += e;
+
+        e = '';
+
+        for(var i=0; i < JobTitles.length; i++)
         {
-            e += `
-            <span class="viewMore">
-            <li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
+            var list = Employees.filter(employee => {
+                return employee['jobTitle'].includes(JobTitles[i]);
+            });
+
+            if(i == 5)
+            {
+                e += `
+                <span class="viewMore">
+                <li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
+            }
+
+            else if(i == JobTitles.length-1)
+            {
+                e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>
+                </span>`;
+            }
+            else
+            {
+                e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
+            }
         }
 
-        else if(i == JobTitles.length-1)
-        {
-            e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>
-            </span>`;
-        }
-        else
-        {
-            e += `<li class="side-panel-j-items">${JobTitles[i]} (${list.length})</li>`;
-        }
+        var sidePanelJobs = document.getElementById('Job Titles');
+        sidePanelJobs.innerHTML += e;
+
+        sidePanel = document.querySelector('.side-panel');
+        e = ``;
+        e=`<a id="viewMoreT">view more</a>`;
+        sidePanel.innerHTML += e;
+
+        document.getElementById("viewMoreT").addEventListener('click', 
+        function (e){
+
+            var panel = document.querySelector(".viewMore");
+            if(panel.style.display == 'none')
+            {
+                panel.style.display = 'inline';
+                this.innerHTML = 'view less';
+            }
+            else
+            {
+                panel.style.display = 'none';
+                this.innerHTML = 'view more';
+            }
+        });
+
+        document.querySelectorAll('.side-panel-d-items').forEach( item => {
+            item.addEventListener('click', 
+            function(event){
+
+                var c = event.currentTarget.innerHTML;
+                var string = c.substring(0,c.indexOf(" "));
+                Employees = Employees.filter( employee => {
+                    return employee.department.toLowerCase().includes(string.toLowerCase());
+                });
+
+                document.getElementById('details').innerHTML = '';
+                displayEmployee();
+            })
+        });
+
+        document.querySelectorAll('.side-panel-o-items').forEach( item => {
+            item.addEventListener('click', 
+            function(event){
+
+                var c = event.currentTarget.innerHTML;
+                var string = c.substring(0,c.indexOf(" "));
+                Employees = Employees.filter( employee => {
+                    return employee.office.toLowerCase().includes(string.toLowerCase());
+                });
+
+                document.getElementById('details').innerHTML = '';
+                displayEmployee();
+            })
+        });
+
+        document.querySelectorAll('.side-panel-j-items').forEach( item => {
+            item.addEventListener('click', 
+            function(event){
+
+                var c = event.currentTarget.innerHTML;
+                var string = c.substring(0,c.indexOf(" "));
+                Employees = Employees.filter( employee => {
+                    return employee.jobTitle.toLowerCase().includes(string.toLowerCase());
+                });
+
+                document.getElementById('details').innerHTML = '';
+                displayEmployee();
+            })
+        });
+
     }
 
-    var sidePanelJobs = document.getElementById('Job Titles');
-    sidePanelJobs.innerHTML += e;
+    else
+    {
+        var e = `
+        <h3>Departments</h3> 
+            <ul id="Departments">
+                <li class="side-panel-d-items">IT (0)</li>
+                <li class="side-panel-d-items">Human Resources (0)</li>
+                <li class="side-panel-d-items">MD (0)</li>
+                <li class="side-panel-d-items">Sales (0)</li>
+            </ul>
+            <br>
+            <h3>Offices</h3>
+            <ul id="Offices">
+                <li class="side-panel-o-items">Seattle (0)</li>
+                <li class="side-panel-o-items">India (0)</li>
+            </ul>
+            <br>
+            <h3>Job Titles</h3>
+            <ul id="Job Titles">
+            </ul>
+        `;
 
-    sidePanel = document.querySelector('.side-panel');
-    e = ``;
-    e=`<a id="viewMoreT">view more</a>`;
-    sidePanel.innerHTML += e;
+        sidePanel.innerHTML += e;
 
-    document.getElementById("viewMoreT").addEventListener('click', 
-    function (e){
+        e = '';
 
-        var panel = document.querySelector(".viewMore");
-        if(panel.style.display == 'none')
+        for(var i=0; i < JobTitles.length; i++)
         {
-            panel.style.display = 'inline';
-            this.innerHTML = 'view less';
+            if(i == 5)
+            {
+                e += `
+                <span class="viewMore">
+                <li class="side-panel-j-items">${JobTitles[i]} (0)</li>`;
+            }
+
+            else if(i == JobTitles.length-1)
+            {
+                e += `<li class="side-panel-j-items">${JobTitles[i]} (0)</li>
+                </span>`;
+            }
+            else
+            {
+                e += `<li class="side-panel-j-items">${JobTitles[i]} (0)</li>`;
+            }
         }
-        else
-        {
-            panel.style.display = 'none';
-            this.innerHTML = 'view more';
-        }
-    });
 
-    document.querySelectorAll('.side-panel-d-items').forEach( item => {
-        item.addEventListener('click', 
-        function(event){
+        var sidePanelJobs = document.getElementById('Job Titles');
+        sidePanelJobs.innerHTML += e;
 
-            var c = event.currentTarget.innerHTML;
-            var string = c.substring(0,c.indexOf(" "));
-            Employees = Employees.filter( employee => {
-                return employee.department.toLowerCase().includes(string.toLowerCase());
-            });
+        sidePanel = document.querySelector('.side-panel');
+        e = ``;
+        e=`<a id="viewMoreT">view more</a>`;
+        sidePanel.innerHTML += e;
 
-            document.getElementById('details').innerHTML = '';
-            displayEmployee();
-        })
-    });
+        document.getElementById("viewMoreT").addEventListener('click', 
+        function (e){
 
-    document.querySelectorAll('.side-panel-o-items').forEach( item => {
-        item.addEventListener('click', 
-        function(event){
+            var panel = document.querySelector(".viewMore");
+            if(panel.style.display == 'none')
+            {
+                panel.style.display = 'inline';
+                this.innerHTML = 'view less';
+            }
+            else
+            {
+                panel.style.display = 'none';
+                this.innerHTML = 'view more';
+            }
+        });
 
-            var c = event.currentTarget.innerHTML;
-            var string = c.substring(0,c.indexOf(" "));
-            Employees = Employees.filter( employee => {
-                return employee.office.toLowerCase().includes(string.toLowerCase());
-            });
-
-            document.getElementById('details').innerHTML = '';
-            displayEmployee();
-        })
-    });
-
-    document.querySelectorAll('.side-panel-j-items').forEach( item => {
-        item.addEventListener('click', 
-        function(event){
-
-            var c = event.currentTarget.innerHTML;
-            var string = c.substring(0,c.indexOf(" "));
-            Employees = Employees.filter( employee => {
-                return employee.jobTitle.toLowerCase().includes(string.toLowerCase());
-            });
-
-            document.getElementById('details').innerHTML = '';
-            displayEmployee();
-        })
-    });
-
-
+    }
 }
 
 
