@@ -96,7 +96,6 @@ function displayAddEmployee(){
 
     data.innerHTML += e;
 
-    console.log(e);
 }
 
 function displayEmployee() {
@@ -129,7 +128,6 @@ function displayEmployee() {
 
 function displayEmployeeDetails(id) {
     
-    console.log(id);
     var index = id[id.length - 1];
     var employee = Employees[index];
 
@@ -374,6 +372,7 @@ function setOriginalButtonColor(){
     document.querySelectorAll('.selected-button').forEach( button => {
 
         button.classList.add('alphabet-button');
+        button.classList.remove('selected-button');
     });
 }
 
@@ -398,11 +397,11 @@ function displayAlphabetbuttons(){
             const alphabet = String(e.currentTarget.id[0]);
             this.classList.add('selected-button');
             this.classList.remove('alphabet-button');
-            console.log(this.classList);
             Employees = Employees.filter( employee => {
                 return employee.preferedName[0].toLowerCase().includes(alphabet.toLowerCase());
-        });
-    
+            });
+
+        EmployeeTemp = Employees;    
         var data = document.getElementById('details');
         data.innerHTML = '';
         displayEmployee();
@@ -432,6 +431,12 @@ function saveEmployees() {
 function loadEmployees(){
 
     Employees = JSON.parse(localStorage.getItem('Employees')) || [];
+
+}
+
+function loadEmployeelist(list){
+
+    Employees = list;
 
 }
 
@@ -471,7 +476,15 @@ function(){
 document.getElementById('searchBar').addEventListener('keyup', 
 function (e) {
 
-    loadEmployees();
+    
+    if(document.getElementById('allButton').classList.contains('selected-button'))
+    {
+        loadEmployees();
+    }
+    else
+    {
+        loadEmployeelist(EmployeeTemp);
+    }
     var filter = document.getElementById('filter').value;
 
     const searchString = e.target.value;
@@ -488,6 +501,7 @@ function (e) {
 
 
 var Employees = [];
+var EmployeeTemp = [];
 document.getElementById('clearButton').disabled = true;
 loadEmployees();
 displayAlphabetbuttons();
